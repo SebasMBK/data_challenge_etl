@@ -1,0 +1,19 @@
+# Virtual env
+.venv
+
+# Utils files
+*.csv
+*.pdf
+
+# Python files
+__pycache__
+
+# Terraform files
+*.terraform
+*.lock.hcl
+*.tfstate
+*.tfstate.backup
+*.lock.info
+lambda_functions/validator_functions/hired_employees/*.zip
+lambda_functions/validator_functions/departments/*.zip
+lambda_functions/validator_functions/jobs/*.zip
