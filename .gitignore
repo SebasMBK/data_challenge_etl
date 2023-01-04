@@ -17,3 +17,6 @@ __pycache__
 lambda_functions/validator_functions/hired_employees/*.zip
 lambda_functions/validator_functions/departments/*.zip
 lambda_functions/validator_functions/jobs/*.zip
+lambda_functions/upload_redshift_function/hired_employees/*.zip
+lambda_functions/upload_redshift_function/departments/*.zip
+lambda_functions/upload_redshift_function/jobs/*.zip
