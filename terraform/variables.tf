@@ -83,6 +83,21 @@ variable "lambda_validator_jobs_name" {
     default = "validator_jobs"
 }
 
+variable "lambda_redshift_hired_employees_name" {
+    type = string
+    default = "redshift_hired_employees"
+}
+
+variable "lambda_redshift_departments_name" {
+    type = string
+    default = "redshift_departments"
+}
+
+variable "lambda_redshift_jobs_name" {
+    type = string
+    default = "redshift_jobs"
+}
+
 variable "function_runtime" {
   type    = string
   default = "python3.9"
@@ -91,4 +106,61 @@ variable "function_runtime" {
 variable "function_arch" {
   type    = string
   default = "x86_64"
+}
+
+variable "redshift_user" {
+  type        = string
+  description = "User for Redshift"
+  sensitive   = true
+}
+
+variable "redshift_pass" {
+  type        = string
+  description = "Password for Redshift"
+  sensitive   = true
+}
+
+variable "redshift_dbname" {
+  type    = string
+  default = "dbemployees"
+}
+
+variable "redshift_cluster" {
+  type    = string
+  default = "project-cluster"
+}
+
+variable "hired_employees_table" {
+  type    = string
+  default = "hired_employees"
+}
+
+variable "departments_table" {
+  type    = string
+  default = "departments"
+}
+
+variable "jobs_table" {
+  type    = string
+  default = "jobs"
+}
+
+variable "staging_table_hired_employees" {
+  type    = string
+  default = "staging_table_hired_employees"
+}
+
+variable "staging_table_departments" {
+  type    = string
+  default = "staging_table_departments"
+}
+
+variable "staging_table_jobs" {
+  type    = string
+  default = "staging_table_jobs"
+}
+
+variable "schema_name" {
+  type    = string
+  default = "employees"
 }
