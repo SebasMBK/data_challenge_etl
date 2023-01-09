@@ -48,9 +48,10 @@ These next requirements need to be installed locally for the correct functioning
 
 ## Start Pipeline
 Terraform will initialize everything that we need for the creation of the pipeline. Just clone the repo and execute the next commands inside the terraform folder:
-1.  `terraform init`: This will initiate terraform in the folder.
-2.  `terraform apply`: This will create our infraestructure. You will be prompt with some required inputs.
-3.  (Only run if you want to destroy the infraestructure) `terraform destroy`: This destroys the created infraestructure.
+1.  `aws configure`: This command is used to login into an AWS Account using your secret access keys.
+2.  `terraform init`: This will initiate terraform in the folder.
+3.  `terraform apply`: This will create our infraestructure. You will be prompt with some required inputs.
+4.  (Only run if you want to destroy the infraestructure) `terraform destroy`: This destroys the created infraestructure.
 
 The pipeline is scheduled by Eventbridge(hourly) and orchestrated by Step Functions. Now, we can wait an hour for the pipeline to be triggered or execute the Step Functions' state machine manually.
 
@@ -58,8 +59,8 @@ The pipeline is scheduled by Eventbridge(hourly) and orchestrated by Step Functi
 |Path|Request Type| Parameters|
 |---|---|---|
 |`/register`| POST| username(str), password(str). This method registers a user to the Flask API. This is necessary since all endpoints require authentication.|
-|`/login`| POST| username(str), password(str). This method logs in a user to the Flask API. This returns an access token that has to be used as the authorization header.|
-|`/logout`| POST| No parameters required. This method logs out a user from the Flask API. Use the access token in the authorization header for logging out.|
+|`/login`| POST| username(str), password(str). This method logins a user to the Flask API. This returns an access token that has to be used as the authorization header.|
+|`/logout`| POST| No parameters required. This method logouts a user from the Flask API. Use the access token in the authorization header for logging out.|
 |`/hiredemployees`| POST| id(int), name(str), datetime_(timestamp-example: 2021-03-01T14:02:01Z), department_id(int), job_id(int). Inserts data to our table.|
 |`/hiredemployees/backup`|GET| No parameters required. This request creates a backup for the selected table and returns a message indicating the name of the backup.|
 |`/hiredemployees/restore/<str:backup_name>`|GET| No parameters required. This request restores a table from a specified backup name(obtained from the backup method).|
@@ -76,5 +77,5 @@ The pipeline is scheduled by Eventbridge(hourly) and orchestrated by Step Functi
 - All endpoints require an authorization header. The access token is provided when the login endpoint is used.
   1. Register.
   2. Login.
-  3. Insert the access token in the authorization header.
+  3. Insert the access token in the authorization header of every endpoint that you want to send a request to.
 - The path URL/swagger-ui will show the documentation of the Flask API.
