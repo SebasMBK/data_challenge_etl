@@ -14,7 +14,7 @@ The tools that were used for the project are:
 - [AWS Lightsail Containers](https://aws.amazon.com/es/lightsail/) for hosting our Flask REST API App.
 - [Terraform](https://www.terraform.io/) as IaC for the infra provisioning.
 - [Docker](https://www.docker.com/) for containerizing our Flask API package.
-- [Insomnia](https://insomnia.rest/) and [Flask](https://flask.palletsprojects.com/en/2.2.x/) for developing and testing our REST API.
+- [Insomnia](https://insomnia.rest/) and [Flask](https://flask.palletsprojects.com/en/2.2.x/) for testing and developing our REST API.
 - [Power BI](https://powerbi.microsoft.com/) for data visualization.
 - [Python](https://www.python.org/) as the main programming language.
 
