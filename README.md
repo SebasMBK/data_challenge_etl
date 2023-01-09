@@ -61,6 +61,7 @@ Terraform will initialize everything that we need for the creation of the pipeli
 |`/hired2021`|GET| No parameters required. This returns the client's requirement(1).|
 |`/qtrlyhired`|GET| No parameters required. This returns the client's requirement(2).|
 
+- The Flask API URL can be found in the AWS lightsail container service.
 - All endpoints require an authorization header. The access token is provided when the login endpoint is used.
   1. Register.
   2. Login.
