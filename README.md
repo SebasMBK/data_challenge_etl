@@ -49,13 +49,13 @@ Terraform will initialize everything that we need for the creation of the pipeli
 |`/register`| POST| username(str), password(str). This method registers a user to the Flask API. This is necessary since all endpoints require authentication.|
 |`/login`| POST| username(str), password(str). This method logs in a user to the Flask API. This returns an access token that has to be used as the authorization header.|
 |`/logout`| POST| No parameters required. This method logs out a user from the Flask API. Use the access token in the authorization header for logging out.|
-|`/hiredemployees`| POST| id(int), name(str), datetime_(timestamp-example: 2021-03-01T14:02:01Z), department_id(int), job_id(int).|
+|`/hiredemployees`| POST| id(int), name(str), datetime_(timestamp-example: 2021-03-01T14:02:01Z), department_id(int), job_id(int). Inserts data to our table.|
 |`/hiredemployees/backup`|GET| No parameters required. This request creates a backup for the selected table and returns a message indicating the name of the backup.|
 |`/hiredemployees/restore/<str:backup_name>`|GET| No parameters required. This request restores a table from a specified backup name(obtained from the backup method).|
-|`/departments`| POST| id(int), department(str).|
+|`/departments`| POST| id(int), department(str). Inserts data to our table.|
 |`/departments/backup`|GET| No parameters required. This request creates a backup for the selected table and returns a message indicating the name of the backup.|
 |`/departments/restore/<str:backup_name>`|GET| No parameters required. This request restores a table from a specified backup name(obtained from the backup method).|
-|`/jobs`| POST| id(int), job(str).|
+|`/jobs`| POST| id(int), job(str). Inserts data to our table.|
 |`/jobs/backup`|GET| No parameters required. This request creates a backup for the selected table and returns a message indicating the name of the backup.|
 |`/jobs/restore/<str:backup_name>`|GET| No parameters required. This request restores a table from a specified backup name(obtained from the backup method).|
 |`/hired2021`|GET| No parameters required. This returns the client's requirement(1).|
