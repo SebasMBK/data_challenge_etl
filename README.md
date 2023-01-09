@@ -19,8 +19,14 @@ The tools that were used for the project are:
 - [Python](https://www.python.org/) as the main programming language.
 
 ## Project's Architecture
-![project_arch](https://github.com/SebasMBK/data_challenge_etl/blob/main/images/AWS_Architecture.png)
+![project_arch](https://github.com/SebasMBK/data_challenge_etl/blob/main/images/AWS_Project_Arch.png)
 
+1. Extracting data from its source in AWS S3.
+2. The extracted data is validated, cleaned and uploaded to new AWS S3 buckets.
+3. We deliver the data to Redshift (Data Warehouse).
+4. A Flask REST API is created for the database so we can interact with the data inside our Data Warehouse.
+5. When we make a call to the API to create a backup, an S3 object will be created in parquet format. This new S3 event will send a notification to our lambda function that calls a Glue job that converts any parquet file from the selected S3 Bucket to AVRO format.
+6. Users can now analyze the data using any visualization tool they prefer.
 
 
 ## Client's metric requirements
