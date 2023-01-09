@@ -47,7 +47,7 @@ Terraform will initialize everything that we need for the creation of the pipeli
 Here are the endpoints for our REST API
 |Path|Request Type| Parameters|
 |---|---|---|
-|`/register`| POST| username(str), password(str). This method registers a user to the Flask API. This is necessary since all endpoints required authentication.|
+|`/register`| POST| username(str), password(str). This method registers a user to the Flask API. This is necessary since all endpoints require authentication.|
 |`/login`| POST| username(str), password(str). This method logs in a user to the Flask API. This returns an access token that has to be used as the authorization header.|
 |`/logout`| POST| No parameters required. This method logs out a user from the Flask API. Use the access token in the authorization header for logging out.|
 |`/hiredemployees`| POST| id(int), name(str), datetime_(timestamp-example: 2021-03-01T14:02:01Z), department_id(int), job_id(int).|
