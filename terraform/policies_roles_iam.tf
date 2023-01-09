@@ -22,7 +22,7 @@ resource "aws_iam_role" "lambda_role_s3" {
 EOF
 }
 
-# This policy allows lambda to write logs to cloudwatch, access to redshift and write files to S3
+# This policy allows lambda to write logs to cloudwatch, access to redshift, write files to S3 and trigger glue jobs
 resource "aws_iam_policy" "lambda_s3_policy" {
   name        = "lambda-s3-policy"
   description = "Policy for lambda access to S3"
@@ -52,6 +52,13 @@ resource "aws_iam_policy" "lambda_s3_policy" {
             "redshift:*"
         ],
         "Resource": "arn:aws:redshift:::*"
+    },
+    {
+        "Effect": "Allow",
+        "Action": [
+            "glue:*"
+        ],
+        "Resource": "arn:aws:glue:*:*:*"
     }
 ]
 
@@ -230,4 +237,63 @@ EOF
 resource "aws_iam_role_policy_attachment" "eventbridge_attach" {
   role       = aws_iam_role.eventbridge_role.name
   policy_arn = aws_iam_policy.eventbridge_policy.arn
+}
+
+
+
+#----------------------------------Glue iam---------------------------------#
+
+resource "aws_iam_role" "glue_role" {
+  name = "project_glue_role"
+  path = "/"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "glue.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_policy" "glue_policy" {
+  name        = "project_glue_policy"
+  description = "Policy for glue to write and read S3 buckets and logs"
+
+
+  policy = <<EOF
+{
+"Version": "2012-10-17",
+"Statement": [
+    {
+        "Effect": "Allow",
+        "Action": [
+            "logs:*"
+        ],
+        "Resource": "arn:aws:logs:*:*:*"
+    },
+    {
+        "Effect": "Allow",
+        "Action": [
+            "s3:*"
+        ],
+        "Resource": "arn:aws:s3:::*"
+    }
+]
+} 
+EOF
+}
+
+# This will attach the policy into the role
+resource "aws_iam_role_policy_attachment" "glue_attach" {
+  role       = aws_iam_role.glue_role.name
+  policy_arn = aws_iam_policy.glue_policy.arn
 }

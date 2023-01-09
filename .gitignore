@@ -4,9 +4,11 @@
 # Utils files
 *.csv
 *.pdf
+code.txt
 
 # Python files
 __pycache__
+glue_scripts/*.py
 
 # Terraform files
 *.terraform
@@ -20,3 +22,13 @@ lambda_functions/validator_functions/jobs/*.zip
 lambda_functions/upload_redshift_function/hired_employees/*.zip
 lambda_functions/upload_redshift_function/departments/*.zip
 lambda_functions/upload_redshift_function/jobs/*.zip
+lambda_functions/trigger_glue_function/hired_employees/*.zip
+lambda_functions/trigger_glue_function/departments/*.zip
+lambda_functions/trigger_glue_function/jobs/*.zip
+lambda_functions/flask_app_users/*.zip
+api_service/deploy_commands.txt
+api_service/*.json
+glue_scripts/*.py
+
+# Flask files
+api_service/.flaskenv

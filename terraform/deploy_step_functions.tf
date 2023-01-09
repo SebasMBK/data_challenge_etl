@@ -1,7 +1,10 @@
+# This will create our step functions service that will orchestrate the pipeline and will be
+# scheduled using eventbridge
 resource "aws_sfn_state_machine" "step_functions" {
   name     = "project_state_machine"
   role_arn = aws_iam_role.step_functions_role.arn
 
+  # Creating the flow using Amazon States Language
   definition = <<EOF
 {
   "Comment": "Project State Machine",
@@ -98,6 +101,29 @@ resource "aws_sfn_state_machine" "step_functions" {
             "Redshift jobs": {
               "Type": "Task",
               "Resource": "${aws_lambda_function.jobs_lambda_redshift.arn}",
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "Lambda.ServiceException",
+                    "Lambda.AWSLambdaException",
+                    "Lambda.SdkClientException",
+                    "Lambda.TooManyRequestsException"
+                  ],
+                  "IntervalSeconds": 2,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2
+                }
+              ],
+              "End": true
+            }
+          }
+        },
+        {
+          "StartAt": "Create Users Table",
+          "States": {
+            "Create Users Table": {
+              "Type": "Task",
+              "Resource": "${aws_lambda_function.create_users_table.arn}",
               "Retry": [
                 {
                   "ErrorEquals": [

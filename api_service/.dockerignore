@@ -1,0 +1,3 @@
+# Python logs / not necessary files
+__pycache__
+*.md
