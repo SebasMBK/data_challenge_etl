@@ -19,7 +19,7 @@ The tools that were used for the project are:
 - [Python](https://www.python.org/) as the main programming language.
 
 ## Project's Architecture
-![project_arch](https://github.com/SebasMBK/data_challenge_etl/blob/main/images/AWS_Arch.png)
+![project_arch](https://github.com/SebasMBK/data_challenge_etl/blob/main/images/AWS_Archi.png)
 
 
 
