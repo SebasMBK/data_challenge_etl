@@ -44,7 +44,6 @@ Terraform will initialize everything that we need for the creation of the pipeli
 3.  (ONLY RUN IT IF YOU WANT TO DESTROY THE INFRA) `terraform apply`: This destroys the created infraestructure.
 
 ## Flask REST API
-Here are the endpoints for our REST API
 |Path|Request Type| Parameters|
 |---|---|---|
 |`/register`| POST| username(str), password(str). This method registers a user to the Flask API. This is necessary since all endpoints require authentication.|
