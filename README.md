@@ -21,11 +21,13 @@ The tools that were used for the project are:
 ## Project's Architecture
 
 ## Client's requirements
-The client requested metrics that show:
+Client's requested metrics:
 1. Number of employees hired for each job and department in 2021 divided by quarter.
+
 ![Project Req 1](https://github.com/SebasMBK/data_challenge_etl/blob/main/images/req1.png)
 
 2. List of ids, name and number of employees hired of each department that hired more employees than the mean of employees hired in 2021 for all the departments.
+
 ![Project Req 2](https://github.com/SebasMBK/data_challenge_etl/blob/main/images/req2.png)
 
 ## Project's requirements
