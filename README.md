@@ -66,3 +66,4 @@ Here are the endpoints for our REST API
   1. Register.
   2. Login.
   3. Insert the access token in the authorization header.
+- The path URL/swagger-ui will show the documentation of the Flask API.
