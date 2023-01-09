@@ -19,3 +19,38 @@ The tools that were used for the project are:
 - [Python](https://www.python.org/) as the main programming language.
 
 ## Project's Architecture
+
+## Client's requirements
+The client requested metrics that show:
+1. Number of employees hired for each job and department in 2021 divided by quarter.
+![Project Req 1](https://github.com/SebasMBK/data_challenge_etl/blob/main/images/req1.png)
+
+2. List of ids, name and number of employees hired of each department that hired more employees than the mean of employees hired in 2021 for all the departments.
+![Project Req 2](https://github.com/SebasMBK/data_challenge_etl/blob/main/images/req2.png)
+
+## Project's requirements
+These next requirements need to be installed locally for the correct functioning of the solution:
+1. [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) for account configuring and terraform provisioning.
+2. [AWS CLI Lighstail plugin](https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-install-software) for deploying our containers and pushing the docker images to the AWS Lightsail Containers' Repository.
+3. [Terraform](https://www.terraform.io/) to provision the infraestructure.
+4. [Docker](https://www.docker.com/) to containerize the Flask REST API App image.
+
+## Start Pipeline
+Terraform will initialize everything that we need for the creation of the pipeline. We need to clone the repo and execute the next commands inside the terraform folder:
+1.  `terraform init`: This will initiate terraform in the folder.
+2.  `terraform apply`: This will create our infraestructure. You will be prompt with some required inputs.
+3.  (ONLY RUN IT IF YOU WANT TO DESTROY THE INFRA) `terraform apply`: This destroys the created infraestructure.
+
+## Flask REST API
+Here are the endpoints for our REST API
+|Path|Request Type| Parameters|
+|---|---|---|
+|`/hiredemployees`| POST| id(int), name(str), datetime_(timestamp-example: 2021-03-01T14:02:01Z), department_id(int), job_id(int).|
+|`/hiredemployees/backup`|GET| No parameters required. This request creates a backup for the selected table and returns a message indicating the name of the backup.|
+|`/hiredemployees/restore/<str:backup_name>`|GET| No parameters required. This request restores a table from a specified backup name(obtained from the backup method).|
+|`/departments`| POST| id(int), department(str).|
+|`/departments/backup`|GET| No parameters required. This request creates a backup for the selected table and returns a message indicating the name of the backup.|
+|`/departments/restore/<str:backup_name>`|GET| No parameters required. This request restores a table from a specified backup name(obtained from the backup method).|
+|`/jobs`| POST| id(int), job(str).|
+|`/jobs/backup`|GET| No parameters required. This request creates a backup for the selected table and returns a message indicating the name of the backup.|
+|`/jobs/restore/<str:backup_name>`|GET| No parameters required. This request restores a table from a specified backup name(obtained from the backup method).|
