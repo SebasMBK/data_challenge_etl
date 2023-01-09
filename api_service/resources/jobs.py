@@ -1,3 +1,4 @@
+from flask import current_app, request
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from flask_jwt_extended import jwt_required
@@ -23,19 +24,28 @@ table_backup_folder = os.getenv("BACKUP_FOLDER","table_backup_folder")
 # This initiates the blueprint for the departments endpoints
 blp = Blueprint("jobs", __name__, description="Operations on jobs")
 
+# This will print into the log console all the requests made to our app for this blueprint
+@blp.before_request
+def log_request_info():
+        try:
+            current_app.logger.info('Body: %s', request.json)
+        except:
+            pass
+
 # Methods for the "/jobs" route
 # jwt_required means authentication requirement
-@jwt_required()
 @blp.route("/jobs")
 class AllHiredEmployees(MethodView):
 
     # This GET method returns all the data in our table
     # Used for testing purposes
+    @jwt_required()
     @blp.response(200, JobsSchema(many=True))
     def get(self):
         return jobs_model.query.all()
 
     # This POST method creates one or many records for our table
+    @jwt_required()
     @blp.arguments(JobsSchema(many=True))
     @blp.response(201, JobsSchema(many=True))
     def post(self, new_jobs):
@@ -64,9 +74,9 @@ class AllHiredEmployees(MethodView):
         return jobs
 
 # Backup Method
-@jwt_required()
 @blp.route('/jobs/backup')
 class JobsBackup(MethodView):
+    @jwt_required()
     def get(self):
    
         # This is for assigning a date to the backup filename
@@ -87,9 +97,9 @@ class JobsBackup(MethodView):
         return {"message":f"Backup for jobs completed with the name backup_{backup_time}000."}, 200
 
 # Restore Method
-@jwt_required()
 @blp.route('/jobs/restore/<string:backup_name>')
 class JobsRestore(MethodView):
+    @jwt_required()
     def get(self, backup_name):
    
         # This truncates our table and then copies the selected data(identified by date) from an S3 bucket

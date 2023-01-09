@@ -1,5 +1,7 @@
 from db import db
 from blocklist import BLOCKLIST
+import logging
+import os
 
 from flask import Flask, jsonify
 from flask_smorest import Api
@@ -20,6 +22,11 @@ def create_app():
     app = Flask(__name__)
     app.config.from_pyfile("config.py")
 
+    # app logger
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
+
     # Initiating the database
     db.init_app(app)
 
@@ -36,38 +43,38 @@ def create_app():
     # The next jwt functions are here for error handling
     @jwt.revoked_token_loader
     def revoked_token(jwt_header, jwt_payload):
-        return {
+        return (
             jsonify(
                 {"message":"This token has been revoked.", "error":"token_revoked"}
             ),
-            401
-        }
+            401,
+        )
 
     @jwt.expired_token_loader
     def expired_token(jwt_header, jwt_payload):
-        return {
+        return (
             jsonify(
                 {"message":"Your token has expired", "error":"token_expired"}
             ),
-            401
-        }
+            401,
+        )
     @jwt.invalid_token_loader
     def invalid_token(error):
-        return {
+        return (
             jsonify(
                 {"message":"The token is invalid.", "error":"invalid_token"}
             ),
-            401
-        }
+            401,
+        )
 
     @jwt.unauthorized_loader
     def missing_token(error):
-        return {
+        return (
             jsonify(
                 {"message":"No access token was found.", "error":"authorization_required"}
             ),
-            401
-        }
+            401,
+        )
 
     # This connects flask_smorest with the app
     api = Api(app)

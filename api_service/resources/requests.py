@@ -16,10 +16,10 @@ blp = Blueprint("Client's metrics request", __name__, description="Operations fo
 
 
 # Number of employees hired for each job and department in 2021 divided by quarter.
-@jwt_required()
 @blp.route("/qtrlyhired")
 class QtrlyHired(MethodView):
 
+    @jwt_required()
     @blp.response(200, QuarterlyHiredEmployees(many=True),
                     description="Number of employees hired for each job and department in 2021 divided by quarter.")
     def get(self):
@@ -98,10 +98,10 @@ class QtrlyHired(MethodView):
 
 
 # id's, names and number of employees hired for each department for 2021 greater than the mean
-@jwt_required()
 @blp.route("/hired2021")
 class HiredDepartment(MethodView):
 
+    @jwt_required()
     @blp.response(200, EmployeesHiredDepartment(many=True),
                     description="""
                     List of ids, name and number of employees hired of each department that hired more

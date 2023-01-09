@@ -1,3 +1,4 @@
+from flask import current_app, request
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from flask_jwt_extended import jwt_required
@@ -23,19 +24,28 @@ table_backup_folder = os.getenv("BACKUP_FOLDER","table_backup_folder")
 # This initiates the blueprint for the departments endpoints
 blp = Blueprint("hired_employees", __name__, description="Operations on hired_employees")
 
+# This will print into the log console all the requests made to our app for this blueprint
+@blp.before_request
+def log_request_info():
+        try:
+            current_app.logger.info('Body: %s', request.json)
+        except:
+            pass
+
 # Methods for the "/hiredemployees" route
 # jwt_required means authentication requirement
-@jwt_required()
 @blp.route("/hiredemployees")
 class AllHiredEmployees(MethodView):
 
     # This GET method returns all the data in our table
     # Used for testing purposes
+    @jwt_required()
     @blp.response(200, HiredEmployeesSchema(many=True))
     def get(self):
         return hired_employees_model.query.all()
 
     # This POST method creates one or many records for our table
+    @jwt_required()
     @blp.arguments(HiredEmployeesSchema(many=True))
     @blp.response(201, HiredEmployeesSchema(many=True))
     def post(self, new_hires):
@@ -72,9 +82,9 @@ class AllHiredEmployees(MethodView):
         return hires
 
 # Backup Method
-@jwt_required()
 @blp.route('/hiredemployees/backup')
 class HiredEmployeesBackup(MethodView):
+    @jwt_required()
     def get(self):
    
         # This is for assigning a date to the backup filename
@@ -95,9 +105,9 @@ class HiredEmployeesBackup(MethodView):
         return {"message":f"Backup for hired employees completed with the name backup_{backup_time}000."}, 200
 
 # Restore Method
-@jwt_required()
 @blp.route('/hiredemployees/restore/<string:backup_name>')
 class HiredEmployeesRestore(MethodView):
+    @jwt_required()
     def get(self, backup_name):
    
 
