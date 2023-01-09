@@ -38,7 +38,7 @@ These next requirements need to be installed locally for the correct functioning
 4. [Docker](https://www.docker.com/) to containerize the Flask REST API App image.
 
 ## Start Pipeline
-Terraform will initialize everything that we need for the creation of the pipeline. We need to clone the repo and execute the next commands inside the terraform folder:
+Terraform will initialize everything that we need for the creation of the pipeline. Just clone the repo and execute the next commands inside the terraform folder:
 1.  `terraform init`: This will initiate terraform in the folder.
 2.  `terraform apply`: This will create our infraestructure. You will be prompt with some required inputs.
 3.  (ONLY RUN IT IF YOU WANT TO DESTROY THE INFRA) `terraform apply`: This destroys the created infraestructure.
@@ -47,6 +47,9 @@ Terraform will initialize everything that we need for the creation of the pipeli
 Here are the endpoints for our REST API
 |Path|Request Type| Parameters|
 |---|---|---|
+|`/register`| POST| username(str), password(str). This method registers a user for the Flask API. This is necessary since all endpoints required authentication.|
+|`/login`| POST| username(str), password(str). This method logs in a user to the Flask API. This returns an access token that has to be used as the authorization header.|
+|`/logout`| POST| No parameters required. This method logs out a user from the Flask API. Use the access token in the authorization header for logging out.|
 |`/hiredemployees`| POST| id(int), name(str), datetime_(timestamp-example: 2021-03-01T14:02:01Z), department_id(int), job_id(int).|
 |`/hiredemployees/backup`|GET| No parameters required. This request creates a backup for the selected table and returns a message indicating the name of the backup.|
 |`/hiredemployees/restore/<str:backup_name>`|GET| No parameters required. This request restores a table from a specified backup name(obtained from the backup method).|
@@ -56,3 +59,10 @@ Here are the endpoints for our REST API
 |`/jobs`| POST| id(int), job(str).|
 |`/jobs/backup`|GET| No parameters required. This request creates a backup for the selected table and returns a message indicating the name of the backup.|
 |`/jobs/restore/<str:backup_name>`|GET| No parameters required. This request restores a table from a specified backup name(obtained from the backup method).|
+|`/hired2021`|GET| No parameters required. This returns the client's requirement(1).|
+|`/qtrlyhired`|GET| No parameters required. This returns the client's requirement(2).|
+
+- All endpoints require an authorization header. The access token is provided when the login endpoint is used.
+  1. Register.
+  2. Login.
+  3. Insert the access token in the authorization header.
