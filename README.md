@@ -50,7 +50,7 @@ These next requirements need to be installed locally for the correct functioning
 Terraform will initialize everything that we need for the creation of the pipeline. Just clone the repo and execute the next commands inside the terraform folder:
 1.  `aws configure`: This command is used to login into an AWS Account using your secret access keys.
 2.  `terraform init`: This will initiate terraform in the folder.
-3.  `terraform apply`: This will create our infraestructure. You will be prompt with some required inputs.
+3.  `terraform apply`: This will create our infraestructure. You will be prompt to input a JWT_SECRET_KEY (for the flask API. Keep it secret!) and redshift password and user.
 4.  (Only run if you want to destroy the infraestructure) `terraform destroy`: This destroys the created infraestructure.
 
 The pipeline is scheduled by Eventbridge(hourly) and orchestrated by Step Functions. Now, we can wait an hour for the pipeline to be triggered or execute the Step Functions' state machine manually.
