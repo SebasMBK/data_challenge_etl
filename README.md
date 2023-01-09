@@ -41,7 +41,7 @@ These next requirements need to be installed locally for the correct functioning
 Terraform will initialize everything that we need for the creation of the pipeline. Just clone the repo and execute the next commands inside the terraform folder:
 1.  `terraform init`: This will initiate terraform in the folder.
 2.  `terraform apply`: This will create our infraestructure. You will be prompt with some required inputs.
-3.  (ONLY RUN IT IF YOU WANT TO DESTROY THE INFRA) `terraform apply`: This destroys the created infraestructure.
+3.  (Only run if you want to destroy the infraestructure) `terraform destroy`: This destroys the created infraestructure.
 
 ## Flask REST API
 |Path|Request Type| Parameters|
