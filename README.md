@@ -37,7 +37,7 @@ The tools that were used for the project are:
 
 #### 2. List of ids, name and number of employees hired of each department that hired more employees than the mean of employees hired in 2021 for all the departments.
 
-![Project Req 2](https://github.com/SebasMBK/data_challenge_etl/blob/main/images/req2.png)
+![Project Req 2](https://github.com/SebasMBK/data_challenge_etl/blob/main/images/req2_client.png)
 
 ## Project's requirements
 These next requirements need to be installed locally for the correct functioning of the solution:
