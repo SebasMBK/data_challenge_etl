@@ -85,13 +85,11 @@ class DepartmentsBackup(MethodView):
 
         # Executes an UNLOAD statement that copies the current data in our table to an S3 bucket
         db.session.execute(f"""
-
         UNLOAD ('SELECT * FROM {table_schema}.{departments_table_name}')
         TO 's3://{s3_bucket_backup}/{temp_backup_folder}/backup_{backup_time}' 
         IAM_ROLE '{iam_role}'
         FORMAT PARQUET
         PARALLEL OFF;
-
         """)
 
         return {"message":f"Backup for departments completed with the name backup_{backup_time}000."}, 200
@@ -104,14 +102,11 @@ class DepartmentsRestore(MethodView):
    
         # This truncates our table and then copies the selected data(identified by date) from an S3 bucket
         db.session.execute(f"""
-
         TRUNCATE {table_schema}.{departments_table_name};
-
         COPY {table_schema}.{departments_table_name}
         FROM 's3://{s3_bucket_backup}/{table_backup_folder}/{backup_name}/part'
         IAM_ROLE '{iam_role}'
         FORMAT AS AVRO 'auto';
-
         """)
 
         return {"message":"Departments table restored."}, 200
