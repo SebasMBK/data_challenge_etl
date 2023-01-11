@@ -1,4 +1,4 @@
-# Data Challenge ETL
+# Data Challenge pipeline
 
 This project creates a pipeline that takes data from our sources in an AWS S3 bucket, processes it using lambda functions and, finally, stores it in a redshift database.
 After our ETL pipeline is completed, we add a FLASK REST API to interact with the data. This Flask App allow us to retrieve data, create data and backup and restore tables that are living inside our database.
