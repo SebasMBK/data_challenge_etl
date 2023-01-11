@@ -25,7 +25,7 @@ The tools that were used for the project are:
 2. The extracted data is validated, cleaned and uploaded to new AWS S3 buckets.
 3. We deliver the data to Redshift (Data Warehouse).
 4. A Flask REST API is created for the database so we can interact with the data inside our Data Warehouse.
-5. When we make a call to the API to create a backup, an S3 object will be created in parquet format. This new S3 event will send a notification to our lambda function that calls a Glue job that converts any parquet file from the selected S3 Bucket to AVRO format.
+5. When we make a call to the API to create a backup, an S3 object will be created in parquet format. This new S3 event will send a notification to our lambda function that calls a Glue job that converts any parquet file from the selected S3 Bucket to AVRO format. The process of converting the data usually takes from 1 to 1.5 minutes, therefore, we'll be able to restore our table from that backup AVRO file after that period of time.
 6. Users can now analyze the data using any visualization tool they prefer.
 
 
