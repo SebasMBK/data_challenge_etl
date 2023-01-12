@@ -24,13 +24,14 @@ table_backup_folder = os.getenv("BACKUP_FOLDER","table_backup_folder")
 # This initiates the blueprint for the departments endpoints
 blp = Blueprint("hired_employees", __name__, description="Operations on hired_employees")
 
-# This will print into the log console all the requests made to our app for this blueprint
-@blp.before_request
-def log_request_info():
-        try:
-            current_app.logger.info('Body: %s', request.json)
-        except:
-            pass
+# Logging bad requests
+@blp.errorhandler(422)
+def custom_handler(err):
+    try:
+        current_app.logger.error('Body: %s', request.json)
+    except:
+        pass
+    return {'message':'Please, check the schema of your request. You can find examples in the documentation <URL>/swagger-ui'}, 422
 
 # Methods for the "/hiredemployees" route
 # jwt_required means authentication requirement
