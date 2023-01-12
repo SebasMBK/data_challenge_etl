@@ -1,4 +1,4 @@
-# Data Challenge ETL
+# Data Challenge pipeline
 
 This project creates a pipeline that takes data from our sources in an AWS S3 bucket, processes it using lambda functions and, finally, stores it in a redshift database.
 After our ETL pipeline is completed, we add a FLASK REST API to interact with the data. This Flask App allow us to retrieve data, create data and backup and restore tables that are living inside our database.
@@ -25,7 +25,7 @@ The tools that were used for the project are:
 2. The extracted data is validated, cleaned and uploaded to new AWS S3 buckets.
 3. We deliver the data to Redshift (Data Warehouse).
 4. A Flask REST API is created for the database so we can interact with the data inside our Data Warehouse.
-5. When we make a call to the API to create a backup, an S3 object will be created in parquet format. This new S3 event will send a notification to our lambda function that calls a Glue job that converts any parquet file from the selected S3 Bucket to AVRO format.
+5. When we make a call to the API to create a backup, an S3 object will be created in parquet format. This new S3 event will send a notification to our lambda function that calls a Glue job that converts any parquet file from the selected S3 Bucket to AVRO format. The process of converting the file usually takes from 1 to 1.5 minutes, therefore, we'll be able to restore our table from that backup AVRO file after that period of time.
 6. Users can now analyze the data using any visualization tool they prefer.
 
 
@@ -37,7 +37,7 @@ The tools that were used for the project are:
 
 #### 2. List of ids, name and number of employees hired of each department that hired more employees than the mean of employees hired in 2021 for all the departments.
 
-![Project Req 2](https://github.com/SebasMBK/data_challenge_etl/blob/main/images/req2.png)
+![Project Req 2](https://github.com/SebasMBK/data_challenge_etl/blob/main/images/req2_client.png)
 
 ## Project's requirements
 These next requirements need to be installed locally for the correct functioning of the solution:
